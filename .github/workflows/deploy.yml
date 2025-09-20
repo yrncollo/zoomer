@@ -1,25 +1,9 @@
-name: Deploy VitePress site to GitHub Pages
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: docs  # All npm commands run inside docs/
+        working-directory: docs
 
     steps:
       - name: Checkout repository
@@ -31,7 +15,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm  # Will now correctly find docs/package-lock.json
+          cache: npm
+          cache-dependency-path: docs/package-lock.json  # important
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
@@ -45,16 +30,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: posts/.vitepress/dist  # Path to your actual build output
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          path: posts/.vitepress/dist
 
