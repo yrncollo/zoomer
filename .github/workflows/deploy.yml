@@ -2,8 +2,8 @@ name: Deploy VitePress site to GitHub Pages
 
 on:
   push:
-    branches: [main]        # Trigger on pushes to main
-  workflow_dispatch:         # Allow manual trigger from Actions tab
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: docs  # Run npm commands inside docs/
+        working-directory: docs
 
     steps:
       - name: Checkout repository
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: docs/package-lock.json  # Important for caching
+          cache-dependency-path: docs/package-lock.json
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
@@ -46,7 +46,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: posts/.vitepress/dist  # Path to your build output
+          path: docs/posts/.vitepress/dist   # <-- FIXED
 
   deploy:
     needs: build
