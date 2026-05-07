@@ -5,3 +5,20 @@ edition = "2026"
 
 [dependencies]
 # X11 bindings
+
+x11 = { version = "2.21", features = ["xlib", "xrandr"] }
+
+# OpenGL
+gl = "0.14"
+
+# Image capture / pixel manipulation
+image = { version = "0.25", default-features = false, features = ["png"] }
+
+# Error handling
+anyhow = "1"
+
+# Config parsing
+dirs = "5"
+
+# CLI arg parsing
+clap = { version = "4", features = ["derive"] }
