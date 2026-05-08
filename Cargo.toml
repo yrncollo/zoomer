@@ -22,3 +22,9 @@ dirs = "5"
 
 # CLI arg parsing
 clap = { version = "4", features = ["derive"] }
+
+[build-dependencies]
+
+[profile.release]
+opt-level = 3
+lto = true
