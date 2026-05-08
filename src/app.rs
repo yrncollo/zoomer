@@ -9,3 +9,10 @@ use x11::xlib::{
     XEvent, XGetInputFocus, XGetWindowAttributes, XKeyEvent, XLookupKeysym,
     XNextEvent, XPending, XQueryPointer, XSetInputFocus, XSync,
 };
+
+use crate::capture::Screenshot;
+use crate::config::Config;
+use crate::input::{Camera, Mouse};
+use crate::math::Vec2;
+use crate::renderer::{uniform_loc, upload_texture, link_program, create_quad};
+use crate::window::XWindow;
